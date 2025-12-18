@@ -3,7 +3,7 @@ import { createContext, useContext } from 'react';
 import AuthStore from '@/stores/Auth';
 import UserStore from '@/stores/User';
 
-export type AppContextProps = {
+export type StoresProps = {
   authStore: AuthStore;
   userStore: UserStore;
 }
@@ -12,8 +12,8 @@ export const context = {
   userStore: new UserStore(),
 };
 
-const AppContext = createContext<AppContextProps>(context);
+const StoresContext = createContext<StoresProps>(context);
 
-export const useAppContext = () => useContext(AppContext);
+export const useAppContext = () => useContext(StoresContext);
 
-export default AppContext;
+export default StoresContext;

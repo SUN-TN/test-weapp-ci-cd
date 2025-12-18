@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import { useDidShow, useDidHide } from "@tarojs/taro";
-import AppContext, { context } from "@/context";
-import process from "process/browser";
-global.process = process;
+import StoresContext, { context } from "@/stores/context";
+import '@/utils/withResolversPolyfill';
+
 // 全局样式
 import "./app.scss";
 
@@ -17,7 +17,7 @@ function App(props: { children: React.ReactNode }) {
   useDidHide(() => {});
 
   return (
-    <AppContext.Provider value={context}>{props.children}</AppContext.Provider>
+    <StoresContext.Provider value={context}>{props.children}</StoresContext.Provider>
   );
 }
 

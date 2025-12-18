@@ -25,3 +25,4 @@ declare namespace NodeJS {
     TARO_APP_ID: string
   }
 }
+

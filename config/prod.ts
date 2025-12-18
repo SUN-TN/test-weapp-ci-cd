@@ -1,5 +1,11 @@
 import type { UserConfigExport } from "@tarojs/cli";
 export default {
+  defineConstants: {
+    FILE_BASE_URL: JSON.stringify("https://mall.pida.store"),
+    BASE_URL: JSON.stringify("https://mall.pida.store"),
+    // FILE_BASE_URL: JSON.stringify("http://192.168.31.169:7001"),
+    // BASE_URL: JSON.stringify("http://192.168.31.169:7001"),
+  },
   mini: {},
   h5: {
     /**
