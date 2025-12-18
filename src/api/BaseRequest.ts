@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-// TODO:根据不同框架使用不同的消息提醒
+
 import { showToast, showLoading, hideLoading } from '@tarojs/taro';
 import axios, { AxiosError, type AxiosInstance, type AxiosResponse } from 'axios';
 import { getDefaultConfig } from './config';
@@ -58,7 +58,8 @@ export default class BaseRequest<InstanceConfig extends RequestConfig | undefine
           return res;
         }
 
-        const { code, message } = data;
+        const { code, errors } = data;
+        const message = errors?.[0]?.message
 
         switch (code) {
           case 401: {
@@ -101,7 +102,7 @@ export default class BaseRequest<InstanceConfig extends RequestConfig | undefine
           defaultMessage = codeMessage[status!] || '系统错误';
         }
         // 如果后端有返回内容
-        const backendMsg = error?.response?.data?.message;
+        const backendMsg = error?.response?.data?.errors?.[0]?.message;
         const msg = backendMsg ?? defaultMessage;
 
         if (showError) {
@@ -275,81 +276,3 @@ export default class BaseRequest<InstanceConfig extends RequestConfig | undefine
     return this.request<D>(url, 'OPTIONS', params, config);
   }
 }
-
-const ab = new BaseRequest();
-
-// GET 方法测试
-ab.get<{ id: number; a: string }>('/test').then((res) => {
-  const a = res.a; // ✅ 类型推导成功
-});
-
-ab.get<{ id: number; a: string }>('/test', undefined, {
-  returnFullResponse: true,
-}).then((res) => {
-  const a = res.data.data.a; // ✅ 类型推导成功
-});
-
-// POST 方法测试
-ab.post<{ id: number; a: string }>('/test', { name: 'test' }).then((res) => {
-  const a = res.a; // ✅ 类型推导成功
-});
-
-ab.post<{ id: number; a: string }>('/test', { name: 'test' }, { returnFullResponse: true }).then((res) => {
-  const a = res.data.data.a; // ✅ 类型推导成功
-});
-
-// PUT 方法测试
-ab.put<{ id: number; a: string }>('/test', { name: 'test' }).then((res) => {
-  const a = res.a; // ✅ 类型推导成功
-});
-
-ab.put<{ id: number; a: string }>('/test', { name: 'test' }, { returnFullResponse: true }).then((res) => {
-  const a = res.data.data.a; // ✅ 类型推导成功
-});
-
-// DELETE 方法测试
-ab.delete<{ id: number; a: string }>('/test', { id: 1 }).then((res) => {
-  const a = res.a; // ✅ 类型推导成功
-});
-
-ab.delete<{ id: number; a: string }>('/test', { id: 1 }, { returnFullResponse: true }).then((res) => {
-  const a = res.data.data.a; // ✅ 类型推导成功
-});
-
-// PATCH 方法测试
-ab.patch<{ id: number; a: string }>('/test', { name: 'test' }).then((res) => {
-  const a = res.a; // ✅ 类型推导成功
-});
-
-ab.patch<{ id: number; a: string }>('/test', { name: 'test' }, { returnFullResponse: true }).then((res) => {
-  const a = res.data.data.a; // ✅ 类型推导成功
-});
-
-// HEAD 方法测试
-ab.head<{ id: number; a: string }>('/test', { id: 1 }).then((res) => {
-  const a = res.a; // ✅ 类型推导成功
-});
-
-ab.head<{ id: number; a: string }>('/test', { id: 1 }, { returnFullResponse: true }).then((res) => {
-  const a = res.data.data.a; // ✅ 类型推导成功
-});
-
-// OPTIONS 方法测试
-ab.options<{ id: number; a: string }>('/test', { id: 1 }).then((res) => {
-  const a = res.a; // ✅ 类型推导成功
-});
-
-ab.options<{ id: number; a: string }>('/test', { id: 1 }, { returnFullResponse: true }).then((res) => {
-  const a = res.data.data.a; // ✅ 类型推导成功
-});
-
-// request 方法测试
-ab.request<{ id: number; a: string }>('/test').then((res) => {
-  const a = res.a; // ✅ 类型推导成功
-});
-
-ab.request<{ id: number; a: string }>('/test', undefined, undefined, {
-  returnFullResponse: true,
-}).then((res) => {
-  const a = res.data.data.a; // ✅ 类型推导成功
-});

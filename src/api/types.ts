@@ -28,13 +28,20 @@ export interface RequestMethodConfig extends RequestConfig {
   returnFullResponse?: boolean;
 }
 
+export interface ErrorItem {
+  code: number;
+  filed?: string;
+  message: string;
+}
+
 /**
  * 响应结果基础数据结构
  */
 export interface ResponseData<T = any> {
   code: number;
-  message: string;
   data: T;
+  errors?: ErrorItem[];
+  warnings?: ErrorItem[];
 }
 
 /**
@@ -42,41 +49,9 @@ export interface ResponseData<T = any> {
  */
 export interface ListResponseData<T> extends ResponseData {
   data: {
-    list: T[];
-    // 分页信息，空数据时仍返回完整结构
-    pagination: {
-      pageNum: number;
-      pageSize: number;
-      total: number; // 总条数，空数据时为0
-      totalPage: number; // 总页数，空数据时为0
-    };
+    items: T[];
+    total: number;
   };
-}
-
-/**
- * 排序规则
- */
-export type SortDirection = 'ASC' | 'DESC';
-
-/**
- * 排序配置项
- */
-export interface Sort {
-  filed: string;
-  direction: SortDirection;
-}
-
-/**
- * 列表请求数据结构
- */
-export interface ListRequestData<T extends Record<string, any>> {
-  filter: T;
-  pagination?: {
-    // 必选，分页参数，统一命名规范
-    pageNum: number; // 当前页码，默认1，最小值1
-    pageSize: number; // 每页条数，默认10，最大值100（防止查询压力过大）
-  };
-  sort?: Sort[];
 }
 
 // 错误类型
