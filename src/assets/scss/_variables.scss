@@ -1,0 +1,33 @@
+/**
+ * 颜色
+ */
+$font-color: #333;
+$background-color: #f5f6fa;
+
+/**
+ * 默认距离
+ */
+$space: 1rem;
+
+/**
+ * 边框
+ */
+$border-size: $space * 0.0625; // 1px
+$border-radius: $space * 0.25; // 4px
+
+/**
+ * 布局
+ */
+
+// 顶栏高度
+$navbar-height: $space * 4;
+
+// 侧宽度
+$sidebar-width: $space * 12;
+
+// 底栏高度
+$footer-height: $space * 3.88;
+
+$brand-color: #cba258;
+
+

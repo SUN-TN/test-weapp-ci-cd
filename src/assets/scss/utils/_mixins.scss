@@ -1,0 +1,89 @@
+/**
+ * 动画
+ */
+
+// 默认动画速度
+@mixin transition($seconds: 0.25) {
+  transition: all #{$seconds}s ease;
+}
+
+/**
+ * 阴影
+ */
+
+// 默认阴影
+@mixin box-shadow($color: rgba(black, 0.05)) {
+  box-shadow: 0 ($space * 0.25) ($space * 2.5) $color;
+}
+
+// 阴影线条
+@mixin box-shadow-border($color: $background-color) {
+  box-shadow: 0 $border-size $border-size $color;
+}
+
+/**
+ * 工具
+ */
+
+// 处理 iOS 在被遮挡时滑动卡顿问题
+@mixin scrolling() {
+  -webkit-overflow-scrolling: touch;
+}
+
+// 文字溢出缩略
+@mixin text-overflow($width: 98%) {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  // width: $width;
+  max-width: $width;
+}
+
+// 隐藏滚动条的 mixin（支持纵向、横向、全局滚动场景）
+@mixin hide-scrollbar($direction: "vertical") {
+  // 基础滚动条隐藏（WebKit 内核：Chrome/Safari/微信小程序等）
+  ::-webkit-scrollbar {
+    // 根据方向设置宽度/高度为 0
+    @if $direction == "vertical" {
+      width: 0;
+      height: 0;
+    } @else if $direction == "horizontal" {
+      height: 0;
+      width: 0;
+    } @else {
+      width: 0;
+      height: 0;
+    }
+    display: none;
+    background: transparent;
+  }
+
+  // 兼容 IE 和 Edge
+  -ms-overflow-style: none;
+
+  // 兼容 Firefox
+  scrollbar-width: none;
+
+  // 针对微信小程序 scroll-view 组件的特殊处理
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@mixin flex(
+  $direction: row,
+  $justify-content: flex-start,
+  $align-items: flex-start,
+  $gap: 0
+) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: $justify-content;
+  align-items: $align-items;
+  gap: $gap;
+}
+
+@mixin flex-center($direction: row, $gap: 0) {
+  @include flex($direction, center, center, $gap);
+}

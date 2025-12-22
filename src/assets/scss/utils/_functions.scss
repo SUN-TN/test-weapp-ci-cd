@@ -1,0 +1,5 @@
+// TODO: 修改基础图片路径
+$base-file-url: "http://192.168.31.169:7001";
+@function get-file-url($path) {
+  @return #{$base-file-url}#{$path};
+}

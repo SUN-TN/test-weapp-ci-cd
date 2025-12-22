@@ -1,0 +1,125 @@
+@use '@/assets/scss/variables' as *;
+
+/**
+ * 方向缩写
+ */
+$directions: (
+  't': 'top',
+  'r': 'right',
+  'b': 'bottom',
+  'l': 'left',
+);
+
+/**
+ * 尺寸
+ */
+$sizes: (
+  'xs': 22,
+  'sm': 36,
+  'md': 50,
+  'lg': 64,
+  'xl': 78,
+);
+
+/**
+ * text-align 属性
+ */
+$displays: (left, center, right);
+
+@each $item in $displays {
+  .text-#{$item} {
+    text-align: $item !important;
+  }
+}
+
+/**
+ * display 属性
+ */
+$displays: (none, inherit, inline, block, inline-block, flex, inline-flex);
+
+@each $item in $displays {
+  .d-#{$item} {
+    display: $item !important;
+  }
+}
+
+/**
+  * order 属性
+  */
+@for $i from 1 through 12 {
+  .order-#{$i} {
+    order: $i !important;
+  }
+}
+
+/**
+  * align-items 属性
+  */
+$align-items: (
+  start: flex-start,
+  center: center,
+  end: flex-end,
+  stretch: stretch,
+);
+
+@each $item, $direction in $align-items {
+  .align-items-#{$item} {
+    align-items: $direction !important;
+  }
+}
+
+/**
+  * justify-content 属性
+  */
+$justify: (
+  start: flex-start,
+  center: center,
+  end: flex-end,
+  around: space-around,
+  between: space-between,
+);
+
+@each $item, $direction in $justify {
+  .justify-content-#{$item} {
+    justify-content: $direction !important;
+  }
+}
+
+/**
+ * 边距
+ */
+@for $i from 0 through 12 {
+  $width: $i * ($space * 0.25);
+
+  .p-#{$i} {
+    padding: $width !important;
+  }
+
+  .m-#{$i} {
+    margin: $width !important;
+  }
+
+  @each $alias, $direction in $directions {
+    .p#{$alias}-#{$i} {
+      padding-#{$direction}: $width !important;
+    }
+
+    .m#{$alias}-#{$i} {
+      margin-#{$direction}: $width !important;
+    }
+  }
+}
+
+/**
+ * border 属性
+ */
+@for $i from 1 through 5 {
+  .border-#{$i} {
+    @if $i == 0 {
+      border: unset !important;
+    } @else {
+      border-width: $i * 0.0625rem;
+      border-style: solid;
+    }
+  }
+}
