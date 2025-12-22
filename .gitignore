@@ -6,3 +6,4 @@ deploy_versions/
 node_modules/
 .DS_Store
 .swc
+.vscode/
