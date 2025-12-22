@@ -1,0 +1,62 @@
+.privacyPopupContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  .privacyTitle {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 24px;
+  }
+
+  .privacyText {
+    font-size: 14px;
+    color: #333;
+    line-height: 18.5px;
+    text-align: left;
+    margin-bottom: 16px;
+    font-weight: 400;
+  }
+
+  .privacyLink {
+    color: #007aff;
+    text-decoration: underline;
+  }
+
+  .highlight {
+    color: #007aff;
+    font-weight: 500;
+  }
+
+  .privacyButtons {
+    display: flex;
+    flex-direction: column;
+    min-width: 134px;
+
+    .privacyBtn {
+      border-radius: 1rem;
+      height: 32px;
+      line-height: 32px;
+    }
+
+    .agree {
+      background-color: #cba258;
+      color: #fff;
+    }
+
+    .disagree {
+      border-color: 1px solid #fff !important;
+      background-color: transparent;
+      color: #999999;
+    }
+  }
+  wx-button:after {
+    border-color: transparent;
+  }
+  wx-button {
+    font-size: 14px;
+    padding-left: 32px;
+    padding-right: 32px;
+  }
+}

@@ -1,10 +1,14 @@
-import BaseStore from '@/stores/Base';
+import BaseStore from "@/stores/Base";
 
+export interface UserInfo {
+  name: string;
+  isAgree: boolean;
+  isLogin: boolean;
+}
 export default class UserStore extends BaseStore {
-  // type = '';
-  type = 'admin'; // @TODO: 测试
-  // name = '';
-  name = 'Administrator'; // @TODO: 测试
+  name = "";
+  isAgree = false;
+  isLogin = false;
 
   constructor() {
     super();
@@ -12,14 +16,21 @@ export default class UserStore extends BaseStore {
     this._init();
   }
 
-  /**
-   * 自定义 action
-   */
-  yourAnotherMethod() {
-    console.log('your another method');
-  }
+  setUserInfo = (userInfo: UserInfo) => {
+    this.name = userInfo.name;
+    this.isAgree = userInfo.isAgree;
+    this.isLogin = userInfo.isLogin;
+  };
 
   setName(name: string) {
     this.name = name;
+  }
+
+  setIsAgree(isAgree: boolean) {
+    this.isAgree = isAgree;
+  }
+
+  setIsLogin(isLogin: boolean) {
+    this.isLogin = isLogin;
   }
 }
