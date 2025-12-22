@@ -1,25 +1,25 @@
 {
-	"miniprogramRoot": "dist/",
-	"projectname": "my-taro-app-webpack",
-	"description": "测试",
-	"appid": "touristappid",
-	"setting": {
-		"urlCheck": true,
-		"es6": false,
+  "miniprogramRoot": "dist/",
+  "projectname": "my-taro-app-webpack",
+  "description": "测试",
+  "appid": "wx7c5b86f05701e73a",
+  "setting": {
+    "urlCheck": true,
+    "es6": false,
     "enhance": false,
     "compileHotReLoad": false,
-		"postcss": false,
-		"preloadBackgroundData": false,
-		"minified": false,
-		"newFeature": true,
-		"autoAudits": false,
-		"coverView": true,
-		"showShadowRootInWxmlPanel": false,
-		"scopeDataCheck": false,
-		"useCompilerModule": false
-	},
-	"compileType": "miniprogram",
-	"simulatorType": "wechat",
-	"simulatorPluginLibVersion": {},
-	"condition": {}
+    "postcss": false,
+    "preloadBackgroundData": false,
+    "minified": false,
+    "newFeature": true,
+    "autoAudits": false,
+    "coverView": true,
+    "showShadowRootInWxmlPanel": false,
+    "scopeDataCheck": false,
+    "useCompilerModule": false
+  },
+  "compileType": "miniprogram",
+  "simulatorType": "wechat",
+  "simulatorPluginLibVersion": {},
+  "condition": {}
 }

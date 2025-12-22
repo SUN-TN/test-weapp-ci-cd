@@ -7,9 +7,14 @@ declare module '*.jpeg';
 declare module '*.svg';
 declare module '*.css';
 declare module '*.less';
+declare module '*.module.scss' {
+  const classes: { [key: string]: string };
+  export default classes;
+}
 declare module '*.scss';
 declare module '*.sass';
 declare module '*.styl';
+
 
 declare namespace NodeJS {
   interface ProcessEnv {
