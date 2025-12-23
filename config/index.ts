@@ -2,6 +2,8 @@ import { defineConfig, type UserConfigExport } from "@tarojs/cli";
 import TsconfigPathsPlugin from "tsconfig-paths-webpack-plugin";
 import devConfig from "./dev";
 import prodConfig from "./prod";
+import {CIPluginOpt} from './ciPluginOption'
+
 // https://taro-docs.jd.com/docs/next/config#defineconfig-辅助函数
 export default defineConfig<"webpack5">(async (merge, { command, mode }) => {
   const baseConfig: UserConfigExport<"webpack5"> = {
@@ -16,7 +18,7 @@ export default defineConfig<"webpack5">(async (merge, { command, mode }) => {
     },
     sourceRoot: "src",
     outputRoot: process.env.NODE_ENV === "production" ? "dist" : "dist-dev",
-    plugins: ["@tarojs/plugin-html", "@tarojs/plugin-http"],
+    plugins: ["@tarojs/plugin-html", "@tarojs/plugin-http",['@tarojs/plugin-mini-ci', CIPluginOpt]],
     defineConstants: {},
     copy: {
       patterns: [],
