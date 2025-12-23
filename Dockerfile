@@ -1,6 +1,6 @@
 # ==================== 第一阶段：构建前端项目 ====================
 # 使用 Node 官方镜像（选择和你项目匹配的 Node 版本，如 18/20，推荐 18）
-FROM node:22-alpine AS build-stage
+FROM node:22-bullseye-slim AS build-stage
 
 # 设置工作目录（容器内的目录，相当于 cd 到这个目录）
 WORKDIR /app
