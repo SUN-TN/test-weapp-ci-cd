@@ -2,6 +2,11 @@ import React, { useEffect } from "react";
 import { useDidShow, useDidHide } from "@tarojs/taro";
 import StoresContext, { context } from "@/stores/context";
 import '@/utils/withResolversPolyfill';
+import {a} from '@/utils/test'
+
+console.log('====================================');
+console.log(a,a);
+console.log('====================================');
 
 // 全局样式
 import "./app.scss";
