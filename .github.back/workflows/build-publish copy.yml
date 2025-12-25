@@ -1,0 +1,81 @@
+name: Weapp-Client Submodule Build
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  check-submodule:
+    runs-on: ubuntu-latest
+    outputs:
+      is_weapp_client_updated: ${{ steps.check.outputs.is_weapp_client_updated }}
+    steps:
+      - name: Checkout main repo
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          fetch-depth: 2
+
+      - name: Detect weapp-client submodule update
+        id: check
+        run: |
+          SUBMODULE_PATH="packages/weapp-client/"
+          INCLUDE_GITMODULES=true
+
+          if git rev-parse --verify HEAD^ >/dev/null 2>&1; then
+            CHANGED_FILES=$(git diff --name-only HEAD^ HEAD)
+          else
+            CHANGED_FILES=$(git ls-files)
+          fi
+
+          echo "=== Changed files ==="
+          echo "$CHANGED_FILES"
+
+          SUBMODULE_CHANGES=$(echo "$CHANGED_FILES" | grep "^$SUBMODULE_PATH")
+          if [ "$INCLUDE_GITMODULES" = true ]; then
+            GITMODULES_CHANGE=$(echo "$CHANGED_FILES" | grep "^.gitmodules$")
+            SUBMODULE_CHANGES="$SUBMODULE_CHANGES$GITMODULES_CHANGE"
+          fi
+
+          if [ -n "$SUBMODULE_CHANGES" ]; then
+            echo "is_weapp_client_updated=true" >> $GITHUB_OUTPUT
+          else
+            echo "is_weapp_client_updated=false" >> $GITHUB_OUTPUT
+          fi
+
+  build-weapp-client:
+    needs: check-submodule
+    if: needs.check-submodule.outputs.is_weapp_client_updated == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout main repo with submodules
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          fetch-depth: 1
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22  # 根据子模块的Node版本需求调整
+          cache: 'pnpm'     # 开启pnpm缓存，加速依赖安装
+
+      - name: Install pnpm
+        run: npm install -g pnpm  # 全局安装pnpm
+
+      - name: Install dependencies in weapp-client
+        working-directory: ./packages/weapp-client  # 直接指定子模块工作目录
+        run: pnpm install  # 安装子模块依赖
+
+      - name: Build weapp preview package
+        working-directory: ./packages/weapp-client
+        run: npm run build:weapp:preview  # 执行小程序预览构建命令
+
+      # 可选：上传构建产物作为Artifacts，方便下载查看
+      # - name: Upload build artifacts
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #     name: weapp-client-preview
+      #     path: packages/weapp-client/dist  # 替换为实际的构建产物目录
+      #     retention-days: 7  # 产物保留7天
