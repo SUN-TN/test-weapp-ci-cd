@@ -7,8 +7,8 @@ import packageJson from '../package.json'
  */
 export const CIPluginOpt = {
   weapp: {
-    appid: 'wx7c5b86f05701e73a',
-    privateKeyPath: 'config/private.wx7c5b86f05701e73a.key',
+    appid: 'wxa7c7bba578103d7c',
+    privateKeyPath: 'config/private.wxa7c7bba578103d7c.key',
   },
   // 版本号
   version: packageJson.version || '1.0.0',
