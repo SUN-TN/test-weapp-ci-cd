@@ -1,0 +1,42 @@
+name: Build And Upload Weapp Upload
+on:
+  push:
+    branches: ["main"]
+
+jobs:
+  build-project:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      # 第一步：先安装 pnpm
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 11.1.3
+          run_install: false
+
+      # 第二步：再配置 Node.js，并启用 pnpm 缓存（此时 pnpm 已存在）
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: "pnpm" # 现在能找到 pnpm，正常解析缓存
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      # ✨ 关键步骤：从 GitHub Secrets 写入私钥文件
+      - name: Create Private Key File
+        run: |
+          echo "${{ secrets.MINI_UPLOAD_CODE_PRIVATE_KEY }}" > private.key
+        # 这里动态生成的 private.key 会在当前构建环境中生效，构建结束后自动销毁
+
+      - name: Run build command
+        env:
+          NODE_ENV: production
+          MINI_PRIVATE_KEY_PATH: "private.key" # 传递给 Taro 插件的环境变量
+        run: pnpm run build:weapp:upload

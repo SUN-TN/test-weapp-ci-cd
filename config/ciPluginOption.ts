@@ -1,4 +1,5 @@
-import packageJson from '../package.json'
+import process from "process";
+import packageJson from "../package.json";
 
 // 示例, 如果你使用 `vs code` 作为开发工具， 你还可以使用注释的语法引入插件包含的声明文件，可获得类似于typescript的友好提示
 /**
@@ -7,11 +8,11 @@ import packageJson from '../package.json'
  */
 export const CIPluginOpt = {
   weapp: {
-    appid: 'wxa7c7bba578103d7c',
-    privateKeyPath: 'config/private.wxa7c7bba578103d7c.key',
+    appid: "wxa7c7bba578103d7c",
+    privateKeyPath: process.env.MINI_PRIVATE_KEY_PATH ?? "config/private.key",
   },
   // 版本号
-  version: packageJson.version || '1.0.0',
+  version: packageJson.version || "1.0.0",
   // 版本发布描述
-  desc: '版本描述',
-}
+  desc: "版本描述",
+};
